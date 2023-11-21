@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'app-body',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./body.component.css']
 })
 export class BodyComponent {
+
+  constructor(private ls: LocalStorageService) {
+    console.log('number of notes: ' + ls.getNumberOfNotes())
+  }
+
 
 }
