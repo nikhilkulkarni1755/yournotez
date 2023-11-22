@@ -8,6 +8,8 @@ import { LocalStorageService } from '../local-storage.service';
 })
 export class BodyComponent {
 
+  note:string = ''
+
   constructor(private ls: LocalStorageService) {
     console.log('number of notes: ' + ls.getNumberOfNotes())
   }

@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-
+  data:string = ''
+  onSubmit(inputdata:string) {
+    console.log('clicked here!')
+    console.log(inputdata)
+  }
 }
