@@ -15,10 +15,6 @@ export class BodyComponent {
     this.getNotes()
   }
 
-  getIndexes() {
-    
-  }
-
   getNotes() {
     this.notes = this.ls.getData()
     console.log(this.notes)
