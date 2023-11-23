@@ -5,24 +5,64 @@ import { Injectable } from '@angular/core';
 })
 export class LocalStorageService {
 
-  numberOfNotes:any = 0
+  numberOfNotes:number = 0
+  notes:any[] = []
+  counter:any = 1
 
   constructor() {
     this.getData()
+  }
+
+  private updateNumberOfNotes(newNumber:number) {
+    localStorage.setItem('0', newNumber + '')
+  }
+
+  public clearAll() {
+    localStorage.clear()
   }
 
   public getNumberOfNotes() {
     if(localStorage.getItem('0') === null) {
       localStorage.setItem('0', '0')
     }
-    return localStorage.getItem('0')
+    this.numberOfNotes = Number(localStorage.getItem('0'))
+    console.log('inside getnumberofnotes() line 25:' + this.numberOfNotes)
+    return this.numberOfNotes
   }
 
   public getData() {
-    this.numberOfNotes = localStorage.getItem('0')
+    // this.numberOfNotes = this.getNumberOfNotes()
+    if(this.numberOfNotes > 0) {
+
+      //create for loop here till it fills out.
+      console.log('Inside Service getting data')
+      if(localStorage.getItem(this.counter + '') === null) {
+        console.log('Didnt get any damn data with counter:' + this.counter)
+      }
+
+      console.log('printing out the while loop stuff underneath')
+      while(this.counter <= this.getNumberOfNotes()) {
+        console.log(this.counter + ":" + localStorage.getItem(this.counter + ''))
+        this.notes.push(localStorage.getItem(this.counter + ''))
+        this.counter+=1
+      }
+
+      this.counter = 1
+
+      
+    }
+
+    return this.notes
   }
 
-  public saveData() {
-
+  public saveData(input:string) {
+    console.log('this is the input:' + input)
+    this.updateNumberOfNotes(this.numberOfNotes + 1)
+    localStorage.setItem(this.getNumberOfNotes() + '', input)
+    // this shit is hitting the fan here
+    // console.log('in getItem()' + localStorage.getItem('0'))
+    // this.numberOfNotes = Number(localStorage.getItem('0'))
+    // console.log('numberofnotes:' + this.numberOfNotes)
+    // localStorage.setItem('0', this.numberOfNotes + 1 + '')
   }
 }

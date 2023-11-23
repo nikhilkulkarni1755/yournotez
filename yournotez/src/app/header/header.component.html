@@ -3,7 +3,8 @@
 
 <div>
     <textarea #note placeholder="Type your locally stored notes here:"></textarea><br>
-    <input type="submit" (click)="onSubmit(note.value)">
+    <input type="submit" (click)="onSubmit(note.value)">&nbsp;&nbsp;&nbsp;
+    <input type="submit" value="Delete All" (click)="clearAll()">
     <!-- <input type="button" value="Submit" (click)="onSubmit()" /> -->
     <!-- <input type="button" value="Call" (click)="callPhone(phone.value)" /> -->
 
