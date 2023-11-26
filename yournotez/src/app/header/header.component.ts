@@ -8,6 +8,8 @@ import { LocalStorageService } from '../local-storage.service';
 })
 export class HeaderComponent { // implements OnInit 
 
+  // data:string = ''
+
   @ViewChild("note") myInputField: ElementRef = {} as ElementRef
   ngAfterViewInit() {
     this.myInputField.nativeElement.focus()
@@ -26,7 +28,10 @@ export class HeaderComponent { // implements OnInit
     console.log(inputdata)
     this.ls.saveData(inputdata)
 
+    // this.myInputField.nativeElement.clearAll()
     this.myInputField.nativeElement.focus()
+    this.myInputField.nativeElement.value = ''
+    // this.data = ''
   }
 
   clearAll() {
