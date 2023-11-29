@@ -19,4 +19,6 @@ export class BodyComponent {
     this.notes = this.ls.getData()
     console.log(this.notes)
   }
+
+  // this.ls.
 }

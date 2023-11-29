@@ -48,8 +48,7 @@ export class LocalStorageService {
       }
 
       this.counter = 1
-
-      
+  
     }
 
     return this.notes
@@ -59,10 +58,6 @@ export class LocalStorageService {
     console.log('this is the input:' + input)
     this.updateNumberOfNotes(this.numberOfNotes + 1)
     localStorage.setItem(this.getNumberOfNotes() + '', input)
-    // this shit is hitting the fan here
-    // console.log('in getItem()' + localStorage.getItem('0'))
-    // this.numberOfNotes = Number(localStorage.getItem('0'))
-    // console.log('numberofnotes:' + this.numberOfNotes)
-    // localStorage.setItem('0', this.numberOfNotes + 1 + '')
+    
   }
 }

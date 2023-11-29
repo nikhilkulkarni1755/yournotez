@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit, Renderer2, RendererFactory2 } from '@angular/core';
 import { LocalStorageService } from '../local-storage.service';
+// import { BodyComponent } from '../body/body.component';
 
 @Component({
   selector: 'app-header',
@@ -28,10 +29,12 @@ export class HeaderComponent { // implements OnInit
     console.log(inputdata)
     this.ls.saveData(inputdata)
 
-    // this.myInputField.nativeElement.clearAll()
     this.myInputField.nativeElement.focus()
     this.myInputField.nativeElement.value = ''
     // this.data = ''
+    // this.b.getNotes()
+
+    // Here we need to do something so that body refreshes
   }
 
   clearAll() {
