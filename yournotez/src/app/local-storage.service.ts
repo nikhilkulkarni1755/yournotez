@@ -26,7 +26,8 @@ export class LocalStorageService {
       localStorage.setItem('0', '0')
     }
     this.numberOfNotes = Number(localStorage.getItem('0'))
-    console.log('inside getnumberofnotes() line 25:' + this.numberOfNotes)
+    this.counter = this.numberOfNotes
+    // console.log('inside getnumberofnotes() line 25:' + this.numberOfNotes)
     return this.numberOfNotes
   }
 
@@ -37,17 +38,18 @@ export class LocalStorageService {
       //create for loop here till it fills out.
       console.log('Inside Service getting data')
       if(localStorage.getItem(this.counter + '') === null) {
-        console.log('Didnt get any damn data with counter:' + this.counter)
+        console.log('Didnt get any data with counter:' + this.counter)
       }
 
       console.log('printing out the while loop stuff underneath')
-      while(this.counter <= this.getNumberOfNotes()) {
+      while(this.counter > 0) {
+      // while(this.counter <= this.getNumberOfNotes()) {
         console.log(this.counter + ":" + localStorage.getItem(this.counter + ''))
         this.notes.push(localStorage.getItem(this.counter + ''))
-        this.counter+=1
+        this.counter-=1
       }
 
-      this.counter = 1
+      this.counter = this.getNumberOfNotes()
   
     }
 
