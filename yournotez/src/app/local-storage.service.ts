@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
 
-  numberOfNotes:number = 0
+  private numberOfNotes = new BehaviorSubject<number>(0)
+  currentNotes = this.numberOfNotes.asObservable()
+  // numberOfNotes:number = 0
   notes:any[] = []
   counter:any = 1
 
@@ -33,7 +36,7 @@ export class LocalStorageService {
 
   public getData() {
     // this.numberOfNotes = this.getNumberOfNotes()
-    if(this.numberOfNotes > 0) {
+    if(Number(this.numberOfNotes) > 0) {
 
       //create for loop here till it fills out.
       console.log('Inside Service getting data')
@@ -58,7 +61,8 @@ export class LocalStorageService {
 
   public saveData(input:string) {
     console.log('this is the input:' + input)
-    this.updateNumberOfNotes(this.numberOfNotes + 1)
+    this.numberOfNotes.next(Number(this.numberOfNotes) + 1)
+    this.updateNumberOfNotes(Number(this.numberOfNotes) + 1)
     localStorage.setItem(this.getNumberOfNotes() + '', input)
     
   }

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit, Renderer2, RendererFactory2 } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, Renderer2, RendererFactory2, EventEmitter, Output } from '@angular/core';
 import { LocalStorageService } from '../local-storage.service';
 // import { BodyComponent } from '../body/body.component';
 
@@ -10,6 +10,8 @@ import { LocalStorageService } from '../local-storage.service';
 export class HeaderComponent { // implements OnInit 
 
   // data:string = ''
+
+  @Output() eventName = new EventEmitter<string>()
 
   @ViewChild("note") myInputField: ElementRef = {} as ElementRef
   ngAfterViewInit() {
@@ -28,6 +30,7 @@ export class HeaderComponent { // implements OnInit
     console.log('clicked here!')
     console.log(inputdata)
     this.ls.saveData(inputdata)
+    this.eventName.emit()
 
     this.myInputField.nativeElement.focus()
     this.myInputField.nativeElement.value = ''
