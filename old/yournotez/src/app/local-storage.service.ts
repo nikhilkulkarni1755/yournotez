@@ -24,6 +24,15 @@ export class LocalStorageService {
     localStorage.clear()
   }
 
+  edit(value: number) {
+    this.numberOfNotes.next([
+      ...this.numberOfNotes.value,
+      {
+
+      }
+    ])
+  }
+
   public getNumberOfNotes() {
     if(localStorage.getItem('0') === null) {
       localStorage.setItem('0', '0')

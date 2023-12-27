@@ -1,0 +1,12 @@
+<h1>yournotez.com</h1>
+<h3>Browser notes</h3>
+
+<div>
+    <input id="notes" #notes type="text" placeholder="Enter notes here"><br><br>
+    <input id="submit" type="submit" (click)="onSubmit(notes.value)">
+</div>
+
+<div *ngFor="let note of allnotes">
+    {{note}}<br>
+</div>
+
