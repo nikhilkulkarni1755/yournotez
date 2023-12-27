@@ -8,8 +8,11 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 export class HeaderComponent {
   @ViewChild("notes") myInputField: ElementRef = {} as ElementRef
 
+  colors = ['lightgreen', 'rgb(148, 179, 236)', 'orange', 'rgb(249, 249, 129)', 'pink']
+  
+
   // localStorage.setItem('0', newNumber + '')
-  allnotes:string[] = []
+  allnotes:any[] = []
   constructor() {
 
   }
@@ -28,6 +31,7 @@ export class HeaderComponent {
 
   clearAll() {
     localStorage.clear()
+    this.allnotes = []
   }
 
   getData() {
@@ -35,12 +39,16 @@ export class HeaderComponent {
 
     // add to this.allnotes
   }
+
+  private getRandomColor() {
+    return Math.floor(Math.random() * this.colors.length);
+  }
   
   onSubmit(data:string) {
     console.log(data)
 
     this.myInputField.nativeElement.value = ''
     this.myInputField.nativeElement.focus()
-    this.allnotes.unshift(data)
+    this.allnotes.unshift({note:data, color:this.colors[this.getRandomColor()]})
   }
 }

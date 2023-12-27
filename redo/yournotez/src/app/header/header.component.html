@@ -3,10 +3,12 @@
 
 <div>
     <input id="notes" #notes type="text" placeholder="Enter notes here"><br><br>
-    <input id="submit" type="submit" (click)="onSubmit(notes.value)">
+    <input id="submit" type="submit" (click)="onSubmit(notes.value)" value="Enter Note">
+    &nbsp;
+    <input id="clear" type="submit" (click)="clearAll()" value="Delete All">
 </div>
 
 <div *ngFor="let note of allnotes">
-    {{note}}<br>
+    <div id="container" [ngStyle]="{'background-color': note.color}">{{note.note}}<br></div>
 </div>
 
