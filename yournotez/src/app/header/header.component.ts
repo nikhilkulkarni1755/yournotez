@@ -7,14 +7,15 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 })
 export class HeaderComponent {
   @ViewChild("notes") myInputField: ElementRef = {} as ElementRef
-
+  numberOfNotes:number = 0
+  counter: number = 1
   colors = ['lightgreen', 'rgb(148, 179, 236)', 'orange', 'rgb(249, 249, 129)', 'pink']
   
 
   // localStorage.setItem('0', newNumber + '')
   allnotes:any[] = []
   constructor() {
-
+    this.getData()
   }
 
   // localStorage.setItem(this.getNumberOfNotes() + '', input)
@@ -29,15 +30,32 @@ export class HeaderComponent {
     return this.numberOfNotes
   */
 
-  clearAll() {
-    localStorage.clear()
-    this.allnotes = []
+  private updateNumberOfNotes(newNumber:number) {
+    localStorage.setItem('0', newNumber + '')
+  }
+
+  saveData(input:string) {
+    console.log('this is the input:' + input)
+    this.numberOfNotes += 1
+    this.updateNumberOfNotes(Number(this.numberOfNotes) + 1)
+    localStorage.setItem(this.numberOfNotes + '', input)
+    
   }
 
   getData() {
-    // get data from localStorage here
+    if(localStorage.getItem('0') === null) {
+      localStorage.setItem('0', '0')
+      this.numberOfNotes = 0
+    }
+    else {
+      this.numberOfNotes = Number(localStorage.getItem('0'))
+      
+    }
+  }
 
-    // add to this.allnotes
+  clearAll() {
+    localStorage.clear()
+    this.allnotes = []
   }
 
   private getRandomColor() {
@@ -46,9 +64,11 @@ export class HeaderComponent {
   
   onSubmit(data:string) {
     console.log(data)
+    this.saveData(data)
 
     this.myInputField.nativeElement.value = ''
     this.myInputField.nativeElement.focus()
+    localStorage.setItem(Number(this.numberOfNotes)+1 + '', JSON.stringify({note:data, color:this.colors[this.getRandomColor()]}))
     this.allnotes.unshift({note:data, color:this.colors[this.getRandomColor()]})
   }
 }
