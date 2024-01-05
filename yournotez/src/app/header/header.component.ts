@@ -9,7 +9,7 @@ export class HeaderComponent {
   @ViewChild("notes") myInputField: ElementRef = {} as ElementRef
   numberOfNotes:number = 0
   counter: number = 1
-  colors = ['lightgreen', 'rgb(148, 179, 236)', 'orange', 'rgb(249, 249, 129)', 'pink']
+  colors = ['#90EE90', '#94B3EC', '#FFA500', '#F98181', '#FFC0CB']
   
 
   // localStorage.setItem('0', newNumber + '')
@@ -34,14 +34,6 @@ export class HeaderComponent {
     localStorage.setItem('0', newNumber + '')
   }
 
-  saveData(input:string) {
-    console.log('this is the input:' + input)
-    this.numberOfNotes += 1
-    this.updateNumberOfNotes(Number(this.numberOfNotes) + 1)
-    localStorage.setItem(this.numberOfNotes + '', input)
-    
-  }
-
   getData() {
     if(localStorage.getItem('0') === null) {
       localStorage.setItem('0', '0')
@@ -49,7 +41,17 @@ export class HeaderComponent {
     }
     else {
       this.numberOfNotes = Number(localStorage.getItem('0'))
-      
+      console.log('Found ' + this.numberOfNotes + " number of notes")
+      for(let i = 1; i < this.numberOfNotes; i++) {
+        let info = localStorage.getItem(i+'')
+        let color = info?.slice(-7)
+        let note = info?.substring(0, info.length-9)
+
+
+        console.log(info + " is all the info")
+        console.log(color + " is the color")
+        console.log(note + " is the note")
+      }
     }
   }
 
@@ -64,11 +66,19 @@ export class HeaderComponent {
   
   onSubmit(data:string) {
     console.log(data)
-    this.saveData(data)
+    this.saveData(data, this.colors[this.getRandomColor()])
 
-    this.myInputField.nativeElement.value = ''
-    this.myInputField.nativeElement.focus()
-    localStorage.setItem(Number(this.numberOfNotes)+1 + '', JSON.stringify({note:data, color:this.colors[this.getRandomColor()]}))
-    this.allnotes.unshift({note:data, color:this.colors[this.getRandomColor()]})
+    // this.myInputField.nativeElement.value = ''
+    // this.myInputField.nativeElement.focus()
+    // localStorage.setItem(Number(this.numberOfNotes)+1 + '', JSON.stringify({note:data, color:this.colors[this.getRandomColor()]}))
+    // this.allnotes.unshift({note:data, color:this.colors[this.getRandomColor()]})
+  }
+
+  saveData(input:string, color:string) {
+    console.log('this is the input:' + input)
+    this.numberOfNotes += 1
+    this.updateNumberOfNotes(Number(this.numberOfNotes) + 1)
+    localStorage.setItem(this.numberOfNotes + '', input + '||' + color)
+    console.log(localStorage.getItem(this.numberOfNotes+''))
   }
 }
