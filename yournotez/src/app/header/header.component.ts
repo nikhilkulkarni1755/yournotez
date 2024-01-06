@@ -1,34 +1,34 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnChanges, ViewChild, signal } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+// export class HeaderComponent implements OnChanges{
 export class HeaderComponent {
+
   @ViewChild("notes") myInputField: ElementRef = {} as ElementRef
   numberOfNotes:number = 0
   counter: number = 1
   colors = ['#90EE90', '#94B3EC', '#FFA500', '#F98181', '#FFC0CB']
   
+  allnotes : any[] = []
+  // changedNotes = signal<any[]>([])
+  changedNotes = signal(this.allnotes)
 
-  // localStorage.setItem('0', newNumber + '')
-  allnotes:any[] = []
-  constructor() {
-    this.getData()
-  }
-
-  // localStorage.setItem(this.getNumberOfNotes() + '', input)
+  // ngOnChanges() {
+    
+  // }
 
   /* 
-  if(localStorage.getItem('0') === null) {
-      localStorage.setItem('0', '0')
-    }
-    this.numberOfNotes = Number(localStorage.getItem('0'))
-    this.counter = this.numberOfNotes
-    // console.log('inside getnumberofnotes() line 25:' + this.numberOfNotes)
-    return this.numberOfNotes
+  TODO: explore if we need to focus when loading into the app 
+  or just let users click as needed
   */
+  constructor() {
+    // this.myInputField.nativeElement.focus()
+    this.getData()
+  }
 
   private updateNumberOfNotes(newNumber:number) {
     localStorage.setItem('0', newNumber + '')
@@ -42,15 +42,13 @@ export class HeaderComponent {
     else {
       this.numberOfNotes = Number(localStorage.getItem('0'))
       console.log('Found ' + this.numberOfNotes + " number of notes")
-      for(let i = 1; i < this.numberOfNotes; i++) {
+      for(let i = 1; i <= this.numberOfNotes; i++) {
         let info = localStorage.getItem(i+'')
         let color = info?.slice(-7)
         let note = info?.substring(0, info.length-9)
-
-
-        console.log(info + " is all the info")
-        console.log(color + " is the color")
-        console.log(note + " is the note")
+        this.allnotes.unshift({note:note, color:color})
+        this.changedNotes.set(this.allnotes)
+        // this.changedNotes.update((prevNotes:any[]) => [{note:note, color:color}, ...prevNotes])
       }
     }
   }
@@ -58,27 +56,33 @@ export class HeaderComponent {
   clearAll() {
     localStorage.clear()
     this.allnotes = []
+    // this.changedNotes.update((prevNotes:any[]) => [])
+
   }
 
   private getRandomColor() {
-    return Math.floor(Math.random() * this.colors.length);
+    return Math.floor(Math.random() * this.colors.length)
   }
   
   onSubmit(data:string) {
     console.log(data)
     this.saveData(data, this.colors[this.getRandomColor()])
+    this.getData()
 
-    // this.myInputField.nativeElement.value = ''
-    // this.myInputField.nativeElement.focus()
-    // localStorage.setItem(Number(this.numberOfNotes)+1 + '', JSON.stringify({note:data, color:this.colors[this.getRandomColor()]}))
-    // this.allnotes.unshift({note:data, color:this.colors[this.getRandomColor()]})
+    // annoying solution
+    // location.reload()
+
+    this.myInputField.nativeElement.value = ''
+    this.myInputField.nativeElement.focus()
+    
   }
 
   saveData(input:string, color:string) {
-    console.log('this is the input:' + input)
     this.numberOfNotes += 1
-    this.updateNumberOfNotes(Number(this.numberOfNotes) + 1)
+    /* TODO: visual difference by having null in the middle */
+    // this.updateNumberOfNotes(Number(this.numberOfNotes) + 1)
+    this.updateNumberOfNotes(Number(this.numberOfNotes))
     localStorage.setItem(this.numberOfNotes + '', input + '||' + color)
-    console.log(localStorage.getItem(this.numberOfNotes+''))
+    // this.cd.detectChanges()
   }
 }
