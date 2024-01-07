@@ -2,7 +2,7 @@
 <h3>Browser notes</h3>
 
 <div>
-    <input id="notes" #notes type="text" placeholder="Enter notes here"><br><br>
+    <input id="notes" #notes type="text" autofocus placeholder="Enter notes here"><br><br>
     <input id="submit" type="submit" (click)="onSubmit(notes.value)" value="Enter Note">
     &nbsp;
     <input id="clear" type="submit" (click)="clearAll()" value="Delete All">

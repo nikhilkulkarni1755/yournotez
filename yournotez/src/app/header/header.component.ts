@@ -14,8 +14,8 @@ export class HeaderComponent {
   colors = ['#90EE90', '#94B3EC', '#FFA500', '#F98181', '#FFC0CB']
   
   allnotes : any[] = []
-  // changedNotes = signal<any[]>([])
-  changedNotes = signal(this.allnotes)
+  changedNotes = signal<any[]>([])
+  // changedNotes = signal(this.allnotes)
 
   // ngOnChanges() {
     
@@ -46,8 +46,11 @@ export class HeaderComponent {
         let info = localStorage.getItem(i+'')
         let color = info?.slice(-7)
         let note = info?.substring(0, info.length-9)
-        this.allnotes.unshift({note:note, color:color})
-        this.changedNotes.set(this.allnotes)
+        
+        // this.changedNotes.set(this.allnotes)
+        const item = {note:note, color:color}
+        this.allnotes.unshift(item)
+        this.changedNotes.update((allnotes) => [item, ...allnotes])
         // this.changedNotes.update((prevNotes:any[]) => [{note:note, color:color}, ...prevNotes])
       }
     }
@@ -56,7 +59,7 @@ export class HeaderComponent {
   clearAll() {
     localStorage.clear()
     this.allnotes = []
-    // this.changedNotes.update((prevNotes:any[]) => [])
+    this.changedNotes.update((allnotes) => [])
 
   }
 
@@ -70,7 +73,7 @@ export class HeaderComponent {
     this.getData()
 
     // annoying solution
-    // location.reload()
+    location.reload()
 
     this.myInputField.nativeElement.value = ''
     this.myInputField.nativeElement.focus()
