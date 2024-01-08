@@ -88,4 +88,9 @@ export class HeaderComponent {
     localStorage.setItem(this.numberOfNotes + '', input + '||' + color)
     // this.cd.detectChanges()
   }
+
+  // export as PDF
+  export() {
+
+  }
 }
