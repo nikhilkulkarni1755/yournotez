@@ -6,9 +6,16 @@
     <input id="submit" type="submit" (click)="onSubmit(notes.value)" value="Enter Note">
     &nbsp;
     <input id="clear" type="submit" (click)="clearAll()" value="Delete All">&nbsp;
-    <!-- <input id="export" type="submit" (click)="export()" value="Export as PDF"> -->
+    <br>
+    <label>Export as: </label>
+    <select id="export">
+        <option value="pdf">None</option>
+        <option value="pdf">PDF</option>
+        <option value="Cloud Option">Cloud Option</option>
+    </select>
+    <br>
 </div>
-
+<br>
 <div id="note" *ngFor="let note of allnotes">
     <div id="container" [ngStyle]="{'background-color': note.color}">{{note.note}}<br></div>
 </div>
