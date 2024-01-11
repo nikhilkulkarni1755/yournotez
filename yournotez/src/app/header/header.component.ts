@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, OnChanges, ViewChild, signal } from '@angular/core';
+import { jsPDF } from 'jspdf' 
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,8 @@ export class HeaderComponent {
 
   @ViewChild("notes") myInputField: ElementRef = {} as ElementRef
   numberOfNotes:number = 0
+  pdf:any
+  notestring:string[] = []
   counter: number = 1
   colors = ['#90EE90', '#94B3EC', '#FFA500', '#F98181', '#FFC0CB']
   
@@ -28,6 +31,18 @@ export class HeaderComponent {
   constructor() {
     // this.myInputField.nativeElement.focus()
     this.getData()
+  }
+
+  getNotes() {
+    this.notestring = []
+
+    // let tempnotes = []
+    for(let i = 0; i < this.allnotes.length; i++) {
+      this.notestring.push(this.allnotes[i].note)
+    }
+    // console.log(tempnotes)
+    // return tempnotes
+    // console.log(this.notestring)
   }
 
   private updateNumberOfNotes(newNumber:number) {
@@ -91,6 +106,35 @@ export class HeaderComponent {
 
   // export as PDF
   export() {
-
+    if(confirm('Download your cuurent notes?')) {
+      this.pdf = new jsPDF({
+        orientation:'p',
+        unit: 'mm',
+        format: 'a4',
+        putOnlyUsedFonts:true
+      })
+      console.log('1')
+      let counter = 20
+      // console.log(this.allnotes)
+      // all notes is not just text, object with 2 fields
+      let tempnotes = []
+      for(let i = 0; i < this.allnotes.length; i++) {
+        // tempnotes.push(this.allnotes.note)
+      }
+      // var splitNote = this.pdf.splitTextToSize(this.allnotes, 180)
+      this.getNotes()
+      console.log(this.notestring)
+      var splitNote = this.pdf.splitTextToSize(this.notestring, 180)
+      
+      console.log('2')
+      console.log(splitNote)
+      for(let i = 0; i < splitNote.length; i++) {
+          this.pdf.text((splitNote[i]), 20, counter)
+          counter+=10
+      }
+  
+      this.pdf.save('yournotez.pdf')
+    }
+    
   }
 }
