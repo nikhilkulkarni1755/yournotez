@@ -38,7 +38,9 @@ export class HeaderComponent {
 
     // let tempnotes = []
     for(let i = 0; i < this.allnotes.length; i++) {
-      this.notestring.push(this.allnotes[i].note)
+      if(typeof this.allnotes[i] !== "undefined") {
+        this.notestring.push(this.allnotes[i].note)
+      }
     }
     // console.log(tempnotes)
     // return tempnotes
@@ -106,7 +108,7 @@ export class HeaderComponent {
 
   // export as PDF
   export() {
-    if(confirm('Download your cuurent notes?')) {
+    if(confirm('Download your current notes as PDF?')) {
       this.pdf = new jsPDF({
         orientation:'p',
         unit: 'mm',
