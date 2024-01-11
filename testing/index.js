@@ -7,16 +7,22 @@ function generatePDF() {
     pdf = new jsPDF({
         orientation:'p',
         unit: 'mm',
-        format: 'a5',
+        format: 'a4',
         putOnlyUsedFonts:true
     })
 
     let counter = 20
-    for(let i = 0; i < notes.length; i++) {
-        // long notes don't work here
-        pdf.text(((i+1) + ") " + notes[i]), 20, counter, {maxWidth: 40})
-        counter += 10
+    var splitNote = pdf.splitTextToSize(notes, 180)
+    for(let i = 0; i < splitNote.length; i++) {
+        pdf.text((splitNote[i]), 20, counter)
+        counter+=10
     }
+    // for(let i = 0; i < notes.length; i++) {
+    //     // long notes don't work here
+    //     let splitNote = pdf.splitTextToSize(notes[i], 180)
+    //     pdf.text(((i+1) + ") " + splitNote), 20, counter)
+    //     counter += 10
+    // }
 
     // pdf.text('First pdf created programmatically by nikhil', 20, 20)
     // pdf.text('First pdf created programmatically by nikhil', 20, 30)
