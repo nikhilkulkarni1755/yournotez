@@ -119,17 +119,17 @@ export class HeaderComponent {
       let counter = 20
       // console.log(this.allnotes)
       // all notes is not just text, object with 2 fields
-      let tempnotes = []
-      for(let i = 0; i < this.allnotes.length; i++) {
-        // tempnotes.push(this.allnotes.note)
-      }
+      // let tempnotes = []
+      // for(let i = 0; i < this.allnotes.length; i++) {
+      //   // tempnotes.push(this.allnotes.note)
+      // }
       // var splitNote = this.pdf.splitTextToSize(this.allnotes, 180)
       this.getNotes()
-      console.log(this.notestring)
+      // console.log(this.notestring)
       var splitNote = this.pdf.splitTextToSize(this.notestring, 180)
       
-      console.log('2')
-      console.log(splitNote)
+      // console.log('2')
+      // console.log(splitNote)
       for(let i = 0; i < splitNote.length; i++) {
           this.pdf.text((splitNote[i]), 20, counter)
           counter+=10
