@@ -38,7 +38,7 @@ export class HeaderComponent {
 
     // let tempnotes = []
     for(let i = 0; i < this.allnotes.length; i++) {
-      if(typeof this.allnotes[i] !== "undefined") {
+      if(typeof this.allnotes[i].note !== "undefined") {
         this.notestring.push(this.allnotes[i].note)
       }
     }
