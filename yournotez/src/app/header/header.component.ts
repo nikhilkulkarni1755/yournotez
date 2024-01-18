@@ -58,7 +58,7 @@ export class HeaderComponent {
     }
     else {
       this.numberOfNotes = Number(localStorage.getItem('0'))
-      console.log('Found ' + this.numberOfNotes + " number of notes")
+      // console.log('Found ' + this.numberOfNotes + " number of notes")
       for(let i = 1; i <= this.numberOfNotes; i++) {
         let info = localStorage.getItem(i+'')
         let color = info?.slice(-7)
@@ -85,16 +85,18 @@ export class HeaderComponent {
   }
   
   onSubmit(data:string) {
-    console.log(data)
-    this.saveData(data, this.colors[this.getRandomColor()])
-    this.getData()
-
-    // annoying solution
-    location.reload()
-
-    this.myInputField.nativeElement.value = ''
-    this.myInputField.nativeElement.focus()
     
+    if (data !== '') {
+      // console.log(data)
+      this.saveData(data, this.colors[this.getRandomColor()])
+      this.getData()
+
+      // annoying solution
+      location.reload()
+      this.myInputField.nativeElement.value = ''
+    }
+    
+    this.myInputField.nativeElement.focus()
   }
 
   saveData(input:string, color:string) {
