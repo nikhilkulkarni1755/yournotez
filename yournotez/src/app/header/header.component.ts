@@ -137,12 +137,15 @@ export class HeaderComponent {
           counter+=10
       }
       let filename = prompt("Enter a filename (don't worry about the .pdf at the end)")
-      if(filename !== null || filename !== '') {
-        this.pdf.save(filename + '.pdf')
+      if(filename !== "") {
+        // this.pdf.save(filename + '.pdf')
+        filename = filename + ".pdf"
       }
       else {
-        this.pdf.save('yournotez.pdf')
+        filename = 'yournotez.pdf'
       }
+      this.pdf.save(filename)
+
       
     }
     
