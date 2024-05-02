@@ -136,8 +136,14 @@ export class HeaderComponent {
           this.pdf.text((splitNote[i]), 20, counter)
           counter+=10
       }
-  
-      this.pdf.save('yournotez.pdf')
+      let filename = prompt("Enter a filename (don't worry about the .pdf at the end)")
+      if(filename !== null || filename !== '') {
+        this.pdf.save(filename + '.pdf')
+      }
+      else {
+        this.pdf.save('yournotez.pdf')
+      }
+      
     }
     
   }
