@@ -18,6 +18,8 @@
 </div>
 <br>
 <div id="note" *ngFor="let note of allnotes">
-    <div id="container" [ngStyle]="{'background-color': note.color}">{{note.note}}<br></div>
+    <!-- <div id="container" [ngStyle]="{'background-color': note.color}">{{note.note}}<button>Delete</button><br></div> -->
+    <div id="container" [ngStyle]="{'background-color': note.color}">{{note.note}}<br></div>    
+
 </div>
 
