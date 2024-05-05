@@ -1,3 +1,5 @@
+https://www.youtube.com/watch?v=9P5DTlg9oLc&ab_channel=DesignCourse
+
 create a model
     model folder
         {model name}.model.ts
@@ -31,3 +33,7 @@ create a model
             }
 
             export type Actions = AddTutorial | RemoveTutorial
+
+            within src folder, app.state.ts
+
+ACTIONS, models, reducers and app.state.ts all within app folder
