@@ -1,7 +1,8 @@
 {
   "name": "yournotez",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "homepage": "https://nikhilkulkarni1755.github.io/yournotez/",
   "type": "module",
   "scripts": {
     "dev": "vite",
