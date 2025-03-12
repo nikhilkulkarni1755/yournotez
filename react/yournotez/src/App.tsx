@@ -9,6 +9,18 @@ function App() {
 	const colors = ["#90EE90", "#94B3EC", "#FFA500", "#F98181", "#FFC0CB"]
 
 	useEffect(() => {
+		const analytix = async () => {
+			try {
+				await fetch("https://nsk1755server.com/yournotez")
+			} catch (err) {
+				console.log(err)
+			}
+		}
+
+		analytix()
+	}, [])
+
+	useEffect(() => {
 		var numNotes = -1
 		let localArr: string[] = []
 		if (localStorage.getItem("0") === null) {
@@ -92,9 +104,16 @@ function App() {
 		// doc.text("Your Notes", 10, 10)
 		// console.log("before loop")
 
+		let y = 20
+
 		notes.reverse().forEach((note, index) => {
-			const text = note.slice(0, -7) // Remove color code
-			doc.text(text, 10, 20 + index * 10)
+			const text = note.slice(0, -7)
+			const splitText = doc.splitTextToSize(text, 180)
+			doc.text(splitText, 10, y)
+
+			// y = splitText.length * 7
+			const textHeight = doc.getTextDimensions(splitText).h // Dynamically get height
+			y += textHeight + 5 // Add some padding to prevent overlap
 		})
 		// console.log("after loop")
 
