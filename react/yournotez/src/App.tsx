@@ -8,6 +8,8 @@ function App() {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const colors = ["#90EE90", "#94B3EC", "#FFA500", "#F98181", "#FFC0CB"]
 
+	// useEffect(() => {}, [])
+
 	useEffect(() => {
 		const analytix = async () => {
 			try {
@@ -16,37 +18,37 @@ function App() {
 				console.log(err)
 			}
 		}
-
-		analytix()
-	}, [])
-
-	useEffect(() => {
-		var numNotes = -1
-		let localArr: string[] = []
-		if (localStorage.getItem("0") === null) {
-			localStorage.setItem("0", "0")
-			setCurrLen(0)
-			// console.log(0)
-			// setCurrLen(0)
-		} else {
-			// numNotes works.
-			numNotes = Number(localStorage.getItem("0"))
-			// console.log(Number(numNotes))
-			setCurrLen(numNotes)
-			for (let i = 1; i <= numNotes; i++) {
-				let val = localStorage.getItem(String(i))
-				if (val !== null) {
-					// console.log(val)
-					localArr.push(val)
-				} else {
-					console.log("null string")
+		const getNotes = () => {
+			var numNotes = -1
+			let localArr: string[] = []
+			if (localStorage.getItem("0") === null) {
+				localStorage.setItem("0", "0")
+				setCurrLen(0)
+				// console.log(0)
+				// setCurrLen(0)
+			} else {
+				// numNotes works.
+				numNotes = Number(localStorage.getItem("0"))
+				// console.log(Number(numNotes))
+				setCurrLen(numNotes)
+				for (let i = 1; i <= numNotes; i++) {
+					let val = localStorage.getItem(String(i))
+					if (val !== null) {
+						// console.log(val)
+						localArr.push(val)
+					} else {
+						console.log("null string")
+					}
 				}
 			}
-		}
 
-		setNotes(localArr.reverse())
-		inputRef.current?.focus()
-		// textAreaRef.current?.focus()
+			setNotes(localArr.reverse())
+			inputRef.current?.focus()
+			// textAreaRef.current?.focus()
+		}
+		analytix()
+
+		getNotes()
 	}, [])
 
 	// Math.floor(Math.random() * this.colors.length)
@@ -106,7 +108,7 @@ function App() {
 
 		let y = 20
 
-		notes.reverse().forEach((note, index) => {
+		notes.reverse().forEach((note) => {
 			const text = note.slice(0, -7)
 			const splitText = doc.splitTextToSize(text, 180)
 			doc.text(splitText, 10, y)
@@ -125,11 +127,11 @@ function App() {
 		<>
 			<div className="header">
 				<button onClick={handleExport}>Export to PDF</button>
-				&ensp;&ensp;
-				<button onClick={() => console.log("export to drive")}>
+				{/* &ensp;&ensp; */}
+				{/* <button onClick={() => console.log("export to drive")}>
 					Export to Google Drive
-				</button>
-				&ensp;&ensp;
+				</button> */}
+				{/* &ensp;&ensp; */}
 			</div>
 			<div>
 				<h1>yournotez.com</h1>
