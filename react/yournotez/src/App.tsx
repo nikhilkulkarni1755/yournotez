@@ -5,6 +5,8 @@ function App() {
 	const [notes, setNotes] = useState<string[]>([])
 	const [currLen, setCurrLen] = useState<number>(-1)
 	const [noteInput, setNoteInput] = useState<string>("")
+	const [showSummary, setShowSummary] = useState<boolean>(false)
+	const [summaryText, setSummaryText] = useState<string>("")
 	const inputRef = useRef<HTMLInputElement>(null)
 	const colors = ["#90EE90", "#94B3EC", "#FFA500", "#F98181", "#FFC0CB"]
 
@@ -123,6 +125,22 @@ function App() {
 		// console.log("after save")
 	}
 
+	const summarize = () => {
+		// summarize w AI ofc
+		if (notes.length === 0) {
+			setSummaryText("No notes available to summarize.")
+		} else {
+			// For now, generate a simple summary by joining the first few notes.
+			const summary =
+				notes
+					.slice(0, 3)
+					.map((note) => note.slice(0, -7)) // Remove color code
+					.join(". ") + "..."
+			setSummaryText(summary)
+		}
+		setShowSummary(true)
+	}
+
 	return (
 		<>
 			<div className="header">
@@ -131,6 +149,7 @@ function App() {
 				{/* <button onClick={() => console.log("export to drive")}>
 					Export to Google Drive
 				</button> */}
+				<button onClick={summarize}>Summarize</button>
 				{/* &ensp;&ensp; */}
 			</div>
 			<div>
@@ -189,6 +208,37 @@ function App() {
 						)
 					})}
 				</div>
+
+				{/* Summary Modal */}
+				{showSummary && (
+					<div
+						style={{
+							position: "fixed",
+							top: "50%",
+							left: "50%",
+							display: "flex",
+							// alignItems: "center",
+							// justifyContent: "center",
+							justifyContent: "flex-start",
+							flexDirection: "column",
+							textAlign: "center",
+							width: "400px",
+							height: "200px",
+							border: "2px solid black",
+							transform: "translate(-50%, -50%)",
+							backgroundColor: "white",
+							padding: "15px",
+							boxShadow: "0px 4px 6px rgba(0,0,0,0.1)",
+							borderRadius: "10px",
+							gap: "8px",
+							zIndex: 1000,
+						}}
+					>
+						<h3>Summary</h3>
+						<p>{summaryText}</p>
+						<button onClick={() => setShowSummary(false)}>Close</button>
+					</div>
+				)}
 			</div>
 		</>
 	)
