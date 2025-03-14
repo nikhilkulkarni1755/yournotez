@@ -141,6 +141,10 @@ function App() {
 		setShowSummary(true)
 	}
 
+	const handleClick = (index: number) => {
+		console.log(notes[index].slice(0, -7) + " clicked")
+	}
+
 	return (
 		<>
 			<div className="header">
@@ -194,6 +198,7 @@ function App() {
 						return (
 							<p
 								key={index}
+								onClick={() => handleClick(index)}
 								style={{
 									backgroundColor: color,
 									margin: 0,
